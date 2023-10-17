@@ -1,0 +1,21 @@
+class Solution:
+    def transitiveClosure(self, N, graph):
+        # Initialize the transitive closure matrix with the original graph
+        tc = [[0 for _ in range(N)] for _ in range(N)]
+
+        # Initialize the transitive closure matrix with the original graph
+        for i in range(N):
+            for j in range(N):
+                tc[i][j] = graph[i][j]
+
+        # Set the diagonal elements to 1 (each vertex is reachable from itself)
+        for i in range(N):
+            tc[i][i] = 1
+
+        # Apply the Floyd-Warshall algorithm to find reachability information
+        for k in range(N):
+            for i in range(N):
+                for j in range(N):
+                    tc[i][j] = tc[i][j] or (tc[i][k] and tc[k][j])
+
+        return tc
