@@ -1,0 +1,27 @@
+class Solution:    
+    def eventualSafeNodes(self, V : int, adj : List[List[int]]) -> List[int]:
+        def isSafe(node):
+            # If the node is already visited, it's safe
+            if visited[node] == 1:
+                return True
+            # If the node is currently being visited, it's not safe (cycle detected)
+            if visited[node] == -1:
+                return False
+            # Mark the node as being visited
+            visited[node] = -1
+            # Check its neighbors
+            for neighbor in adj[node]:
+                if not isSafe(neighbor):
+                    return False
+            # Mark the node as safe
+            visited[node] = 1
+            return True
+
+        safe_nodes = []
+        visited = [0] * V  # 0: not visited, -1: visiting, 1: safe
+
+        for node in range(V):
+            if isSafe(node):
+                safe_nodes.append(node)
+
+        return sorted(safe_nodes)
