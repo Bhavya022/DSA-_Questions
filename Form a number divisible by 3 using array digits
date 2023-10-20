@@ -1,0 +1,10 @@
+class Solution:
+    def isPossible(self, N, arr):
+        remainder = 0  # Initialize remainder to 0
+
+        # Loop through the elements in the 'arr' list
+        for i in range(0, N):
+            remainder = (remainder + arr[i]) % 3  # Add the current element to the remainder and take the remainder when divided by 3
+
+        # Return true if the remainder is 0, indicating that the sum of elements is divisible by 3
+        return 1 if remainder == 0 else 0
